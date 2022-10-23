@@ -78,9 +78,10 @@ int checkFlag(vector<bool> t){
 int main(int argc, const char * argv[]) {
     vector<Part> NFA;
     int num;
-    cout<<"input: "; //输入边的条数
+    cout<<"请输入边的条数：";
     cin>>num;
     getchar();
+    cout<<"请输入每条边的起点、弧上所接受的输入字符和终点："<<endl;
     input(NFA,num);
     
     char sigma[2]={'a','b'}; //字母表
@@ -90,7 +91,6 @@ int main(int argc, const char * argv[]) {
     rawDFA.push_back(start);
     vector<bool> rawDFAflag; //存入子集是否完成的标志
     rawDFAflag.push_back(false);
-    cout<<endl;
     while(checkFlag(rawDFAflag)!=-1){ //检查所有闭包是否被标记
         int m = checkFlag(rawDFAflag);
         rawDFAflag[m]=true; //设置当前开始闭包的flag为true，表示已经完成
@@ -104,8 +104,10 @@ int main(int argc, const char * argv[]) {
         }
     }
     cout<<endl;
+    cout<<"确定化过程为："<<endl;
+    cout<<"\t"<<"|Ia"<<"\t"<<"|Ib"<<"\t|"<<endl;
     for(int i=0;i<rawDFA.size();i++){
-        cout<<rawDFA[i]<<"\t"<<closure(move(rawDFA[i],'a',NFA),NFA)<<"\t"<<closure(move(rawDFA[i],'b',NFA),NFA)<<endl; //输出DFA
+        cout<<"|"<<rawDFA[i]<<"\t|"<<closure(move(rawDFA[i],'a',NFA),NFA)<<"\t|"<<closure(move(rawDFA[i],'b',NFA),NFA)<<"\t|"<<endl; //输出DFA
     }
     return 0;
 }
